@@ -73,9 +73,9 @@ const users: Record<string, User & { password: string }> = {
     username: "user1",
     password: "user123",
     role: "user",
-    name: "John Doe",
+    name: "Bobby",
     phone: "081234567892",
-    email: "john@example.com",
+    email: "Bobby@example.com",
     assignedPages: ["powerbi", "spreadsheet1"],
     createdAt: new Date("2024-02-01"),
     lastLogin: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
@@ -86,9 +86,9 @@ const users: Record<string, User & { password: string }> = {
     username: "user2",
     password: "user456",
     role: "user",
-    name: "Jane Smith",
+    name: "Ntuy",
     phone: "081234567893",
-    email: "jane@example.com",
+    email: "ntuy@example.com",
     assignedPages: ["spreadsheet1"],
     createdAt: new Date("2024-02-15"),
     lastLogin: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
