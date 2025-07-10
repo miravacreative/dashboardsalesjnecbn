@@ -92,3 +92,15 @@ export function DashboardLayout({ children, user, title, sidebar, onLogout }: Da
     </div>
   )
 }
+ {/* Dynamic Bottom Navigation */}
+      {pages.length > 0 && onPageSelect && (
+        <DynamicBottomNavigation
+          user={previewUser || user}
+          pages={pages}
+          currentPageId={currentPageId}
+          onPageSelect={onPageSelect}
+        />
+      )}
+    </div>
+  )
+}
