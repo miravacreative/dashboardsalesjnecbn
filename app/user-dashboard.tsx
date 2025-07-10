@@ -29,6 +29,7 @@ export default function UserDashboard({ user, onLogout }: UserDashboardProps) {
   const [selectedPage, setSelectedPage] = useState<string | null>(null)
   const [pages, setPages] = useState<Page[]>([])
   const [showPageInfo, setShowPageInfo] = useState(false)
+  const hidePageInfo = true
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
