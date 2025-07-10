@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react"
 import { LogOut, Menu, X, Settings, Sun, Moon } from "lucide-react"
 import type { AuthUser } from "@/lib/auth"
+import { DynamicBottomNavigation } from "@/components/dynamic-bottom-navigation"
 
 interface DashboardLayoutProps {
   children: ReactNode
@@ -10,14 +11,28 @@ interface DashboardLayoutProps {
   title: string
   sidebar?: ReactNode
   onLogout: () => void
+  pages?: any[] // Tambahkan ini jika props `pages` dipakai
+  currentPageId?: string
+  previewUser?: AuthUser
+  onPageSelect?: (pageId: string) => void
 }
 
-export function DashboardLayout({ children, user, title, sidebar, onLogout }: DashboardLayoutProps) {
+export function DashboardLayout({
+  children,
+  user,
+  title,
+  sidebar,
+  onLogout,
+  pages = [],
+  currentPageId,
+  previewUser,
+  onPageSelect,
+}: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
 
   return (
-    <div className={`min-h-screen ${darkMode ? "dark bg-gray-900" : "bg-gray-50"}`}>
+    <div className={`min-h-screen flex flex-col ${darkMode ? "dark bg-gray-900" : "bg-gray-50"}`}>
       <title>{title}</title>
 
       {/* Topbar */}
@@ -65,21 +80,18 @@ export function DashboardLayout({ children, user, title, sidebar, onLogout }: Da
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex flex-1">
         {/* Sidebar */}
         {sidebar && (
           <>
-            {/* Mobile Sidebar Overlay */}
             {sidebarOpen && (
               <div className="fixed inset-0 bg-black/50 z-30 lg:hidden" onClick={() => setSidebarOpen(false)} />
             )}
-
-            {/* Sidebar */}
             <aside
               className={`
-              fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-200 ease-in-out
-              ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-            `}
+                fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-200 ease-in-out
+                ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+              `}
             >
               <div className="h-full overflow-y-auto pt-4">{sidebar}</div>
             </aside>
@@ -87,20 +99,20 @@ export function DashboardLayout({ children, user, title, sidebar, onLogout }: Da
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6 flex flex-col">
+          {children}
+
+          {/* Bottom Navigation */}
+          {pages.length > 0 && onPageSelect && (
+            <DynamicBottomNavigation
+              user={previewUser || user}
+              pages={pages}
+              currentPageId={currentPageId}
+              onPageSelect={onPageSelect}
+            />
+          )}
+        </main>
       </div>
-    </div>
-  )
-}
- {/* Dynamic Bottom Navigation */}
-      {pages.length > 0 && onPageSelect && (
-        <DynamicBottomNavigation
-          user={previewUser || user}
-          pages={pages}
-          currentPageId={currentPageId}
-          onPageSelect={onPageSelect}
-        />
-      )}
     </div>
   )
 }
