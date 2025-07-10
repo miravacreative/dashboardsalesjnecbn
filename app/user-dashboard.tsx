@@ -155,9 +155,9 @@ export default function UserDashboard({ user, onLogout }: UserDashboardProps) {
         <div className="relative h-full flex flex-col">
 
           {/* Main Content Area - Bigger Space for Embed */}
-          <div className="flex-1 mb-4 p-6">
+          <div className="flex-1 p-4">
             <div
-              className={`${bgPattern} rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-4 h-full`}
+              className={`${bgPattern} rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-2 h-[calc(100vh-120px)]`}>
             >
               <div className="h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
                 {currentPage.type === "html" && currentPage.htmlContent ? (
